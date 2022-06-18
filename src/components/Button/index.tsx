@@ -1,10 +1,10 @@
 import React from 'react';
 
+import style from './Botao.module.scss';
+
 class Button extends React.Component {
   render() {
-    const isActive = true;
-    const styles = {backgroundColor: isActive ? "blue" : "gray"};
-    return <button type='submit' style={styles}>Button</button>;
+    return <button className={style.Botao} type='submit'>Button</button>;
   }
 }
 
