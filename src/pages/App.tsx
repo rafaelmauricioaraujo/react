@@ -1,7 +1,6 @@
-import React from 'react';
-
 import Form from '../components/Form';
 import List from '../components/List';
+import Timer from '../components/Timer';
 import style from './App.module.scss';
 
 function App() {
@@ -9,6 +8,7 @@ function App() {
     <div className={style.AppStyle}>      
       <List />
       <Form />
+      <Timer />
     </div>
   );
 }
