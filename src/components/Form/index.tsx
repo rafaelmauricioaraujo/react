@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import Button from '../Button';
+import { ITask } from '../types/tasks';
 import style from './Form.module.scss';
 
-class Form extends React.Component {
-  
+class Form extends React.Component<{setTask: React.Dispatch<React.SetStateAction<ITask[]>>}> {
   state = {
     task: '',
     time: '00:00'
@@ -12,12 +14,16 @@ class Form extends React.Component {
 
   addTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    this.setState({task: this.state.task, time: this.state.time});
+    this.props.setTask(oldTasks => [...oldTasks, {...this.state, isSelected: false, isCompleted: false, uuid: uuidv4()}] );
+    this.setState({
+      task: '',
+      time: '00:00'
+    })
   }
 
   render() {
     return (
-      <form className={style.novaTarefa} onSubmit={this.addTask}>
+      <form className={style.novaTarefa} onSubmit={this.addTask.bind(this)}>
         <div className={style.inputContainer}>
           <label htmlFor="task">Add new subject</label>
           <input
@@ -45,7 +51,7 @@ class Form extends React.Component {
             value={this.state.time}
           ></input>
         </div>
-        <Button>
+        <Button type='submit'>
           Adicionar
         </Button>
       </form>
