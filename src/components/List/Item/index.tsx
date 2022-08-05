@@ -1,5 +1,5 @@
 import { ITask } from '../../types/tasks';
-import style from '../Lista.module.scss';
+import style from './Item.module.scss';
 
 interface Props extends ITask {	
 	selectTask: (task: ITask) => void;
@@ -7,7 +7,7 @@ interface Props extends ITask {
 
 export default function Item({task, time, isSelected, isCompleted, uuid, selectTask }: Props) {
 		return (
-		<li className={style.item} onClick={() => selectTask(
+		<li className={`${style.item} ${isSelected ? style.itemSelecionado : '' }`} onClick={() => selectTask(
 				{
 					task, time, isSelected, isCompleted, uuid
 				}
