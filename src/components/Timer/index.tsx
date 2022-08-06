@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 
 import { timeToSeconds } from '../../common/utils/time';
 import Button from '../Button';
@@ -11,20 +14,35 @@ interface Props {
 }
 
 export default function Timer({selected}: Props) {
-	const [time, setTime] = useState<Number>(0);
-	if(selected?.time) {
-		setTime(timeToSeconds(selected?.time));
+	const [time, setTime] = useState<number>(0);
+
+	useEffect(() => {
+		if(selected?.time) {
+			setTime(timeToSeconds(selected?.time));
+		}		
+	}, [selected]);
+
+	const startTimer = (time: number) => {
+
+		setTimeout(() => {
+			if(time > 0) {
+				setTime(time - 1);
+				return startTimer(time - 1);
+			}
+			
+		}, 1000);
+
 	}
+
 	return (
 		<div className={style.cronometro}>
 			<p className={style.titulo}>
 				Escolha um card e inicie o cronômetro.
 			</p>
-			Time: {time}
 			<div className={style.relogioWrapper}>
-				<Watch />
+				<Watch time={time} />
 			</div>
-			<Button> Start </Button>
+			<Button onClick={() => startTimer(time)}> Start </Button>
 		</div>
 	)
 }
