@@ -17,11 +17,26 @@ function App() {
     setTasks(prevTask => prevTask.map(task =>({...task, isSelected: task.uuid === taskSelected?.uuid})));
   };
 
+  const completedTask = () => {
+
+    if(selected) {
+      setSelected(undefined);
+      setTasks(prevTask => prevTask.map(task => {
+        if(task.uuid === selected.uuid) {
+          return {...task, isCompleted: true};
+        }
+        return task;
+      }
+      ));
+    }
+  }  
+
+
   return (
     <div className={style.AppStyle}>      
       <List tasks={tasks} selectTask={selectTask} />
       <Form setTask={setTasks} />
-      <Timer selected={selected} />
+      <Timer selected={selected} completedTask={completedTask} />
     </div>
   );
 }

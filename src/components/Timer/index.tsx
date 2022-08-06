@@ -11,9 +11,10 @@ import Watch from './Wacth';
 
 interface Props {
 	selected: ITask | undefined;
+	completedTask: () => void;
 }
 
-export default function Timer({selected}: Props) {
+export default function Timer({selected, completedTask}: Props) {
 	const [time, setTime] = useState<number>(0);
 
 	useEffect(() => {
@@ -29,7 +30,7 @@ export default function Timer({selected}: Props) {
 				setTime(time - 1);
 				return startTimer(time - 1);
 			}
-			
+			completedTask();
 		}, 1000);
 
 	}
